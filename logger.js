@@ -3,6 +3,7 @@ const fs = require("fs")
 const os = require("os")
 
 const EventEmmiter = require('events')
+const { memoryUsage } = require("process")
 
 class Logger extends EventEmmiter{
 
@@ -20,3 +21,14 @@ const logToFile = (event)=>{
   fs.appendFileSync(logFile, logMessage)
 }
 
+logger.on('message', logToFile)
+
+setInterval(()=>{
+
+  const totalMemory = (os.freemem() / os.totalmem()) * 100
+  logger.log(`Current memory useage: ${totalMemory.toFixed(2)}`)
+
+}, 3000);
+
+logger.log('Application Started')
+logger.log('Application event occcured')
