@@ -29,7 +29,7 @@ logger.on('message', logToFile)
 
 setInterval(()=>{
 
-  const totalMemory = (os.freemem() / os.totalmem()) * 100
+  const totalMemory = 100 - ((os.freemem() / os.totalmem()) * 100)
   logger.log(`Current memory useage: ${totalMemory.toFixed(2)}%`)
 
 }, 3000);
